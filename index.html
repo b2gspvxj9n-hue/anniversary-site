@@ -14,7 +14,7 @@ body{
     align-items:center;
     font-family:"Noto Sans TC",sans-serif;
     overflow:hidden;
-    background:#f5f9ff;
+    background:#eaf4ff;
 }
 
 /* 自訂背景 */
@@ -25,15 +25,15 @@ body::before{
     background-image:url('https://images.plurk.com/46sqXhDC0LECWiYsHbgm7n.png');
     background-size:cover;
     background-position:center;
-    opacity:0.4;
+    opacity:0.35;
     z-index:-2;
 }
 
-/* 透明文字區 */
+/* 取消白框，改為純文字浮在背景上 */
 .container{
     text-align:center;
-    color:#111; /* 黑字 */
-    text-shadow:0 2px 8px rgba(255,255,255,0.6);
+    color:#000000;
+    text-shadow:0 0 15px rgba(0,80,150,0.4);
 }
 
 h1{
@@ -45,7 +45,7 @@ h1{
 .sub{
     font-size:14px;
     margin-bottom:25px;
-    opacity:0.8;
+    opacity:0.9;
 }
 
 .days{
@@ -58,18 +58,20 @@ h1{
     font-size:16px;
 }
 
-/* 羽毛 */
+/* 真羽毛造型 */
 .feather{
     position:fixed;
     top:-60px;
     width:12px;
     height:40px;
-    background:linear-gradient(to bottom,#ffffff,#dbeaff);
-    border-radius:50%;
-    opacity:0.85;
+    background:linear-gradient(to bottom,#ffffff,#cfe7ff);
+    border-radius:50% 50% 50% 50%;
+    opacity:0.8;
+    transform:rotate(20deg);
     animation:fall linear infinite;
 }
 
+/* 羽毛中間的羽軸 */
 .feather::after{
     content:"";
     position:absolute;
@@ -77,7 +79,7 @@ h1{
     top:0;
     width:1px;
     height:100%;
-    background:rgba(200,220,255,0.9);
+    background:rgba(255,255,255,0.7);
     transform:translateX(-50%);
 }
 
@@ -86,10 +88,10 @@ h1{
         transform:translateY(-60px) rotate(0deg) translateX(0);
     }
     50%{
-        transform:translateY(50vh) rotate(180deg) translateX(25px);
+        transform:translateY(50vh) rotate(180deg) translateX(20px);
     }
     100%{
-        transform:translateY(110vh) rotate(360deg) translateX(-25px);
+        transform:translateY(110vh) rotate(360deg) translateX(-20px);
     }
 }
 </style>
@@ -126,6 +128,7 @@ function updateCounter(){
 updateCounter();
 setInterval(updateCounter,1000);
 
+/* 羽毛生成 */
 function createFeather(){
     const feather = document.createElement("div");
     feather.classList.add("feather");
