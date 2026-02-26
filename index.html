@@ -14,10 +14,10 @@ body{
     align-items:center;
     font-family:"Noto Sans TC",sans-serif;
     overflow:hidden;
-    background:#f4faff;
+    background:#eaf4ff;
 }
 
-/* 可自訂背景 */
+/* 自訂背景 */
 body::before{
     content:"";
     position:fixed;
@@ -25,64 +25,73 @@ body::before{
     background-image:url('https://images.plurk.com/46sqXhDC0LECWiYsHbgm7n.png');
     background-size:cover;
     background-position:center;
-    opacity:0.25; /* 背景透明度 */
+    opacity:0.35;
     z-index:-2;
 }
 
-.card{
-    background:rgba(255,255,255,0.85);
-    backdrop-filter:blur(10px);
-    padding:40px;
-    border-radius:24px;
+/* 取消白框，改為純文字浮在背景上 */
+.container{
     text-align:center;
-    box-shadow:0 8px 30px rgba(0,0,0,0.08);
-    width:90%;
-    max-width:420px;
+    color:#ffffff;
+    text-shadow:0 0 15px rgba(0,80,150,0.4);
 }
 
 h1{
-    font-size:24px;
-    letter-spacing:2px;
-    color:#3a6ea5;
+    font-size:28px;
+    letter-spacing:4px;
     margin-bottom:10px;
 }
 
 .sub{
-    font-size:13px;
-    color:#6b8bbd;
+    font-size:14px;
     margin-bottom:25px;
+    opacity:0.9;
 }
 
 .days{
-    font-size:46px;
-    color:#2f5d8a;
+    font-size:52px;
     font-weight:bold;
 }
 
 .time{
     margin-top:10px;
-    color:#5c7ea6;
-    font-size:15px;
+    font-size:16px;
 }
 
-/* 羽毛動畫 */
+/* 真羽毛造型 */
 .feather{
     position:fixed;
-    top:-50px;
-    width:20px;
-    height:20px;
-    background:radial-gradient(ellipse at center, #ffffff 40%, #dbeeff 70%);
-    border-radius:50% 50% 50% 0;
-    opacity:0.7;
+    top:-60px;
+    width:12px;
+    height:40px;
+    background:linear-gradient(to bottom,#ffffff,#cfe7ff);
+    border-radius:50% 50% 50% 50%;
+    opacity:0.8;
+    transform:rotate(20deg);
     animation:fall linear infinite;
+}
+
+/* 羽毛中間的羽軸 */
+.feather::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    width:1px;
+    height:100%;
+    background:rgba(255,255,255,0.7);
+    transform:translateX(-50%);
 }
 
 @keyframes fall{
     0%{
-        transform:translateY(-50px) rotate(0deg);
+        transform:translateY(-60px) rotate(0deg) translateX(0);
+    }
+    50%{
+        transform:translateY(50vh) rotate(180deg) translateX(20px);
     }
     100%{
-        transform:translateY(110vh) rotate(360deg);
+        transform:translateY(110vh) rotate(360deg) translateX(-20px);
     }
 }
 </style>
@@ -90,7 +99,7 @@ h1{
 
 <body>
 
-<div class="card">
+<div class="container">
     <h1>與菲林斯同行</h1>
     <div class="sub">自 2025 年 10 月 13 日</div>
     <div class="days" id="days"></div>
@@ -119,21 +128,21 @@ function updateCounter(){
 updateCounter();
 setInterval(updateCounter,1000);
 
-/* 生成羽毛 */
+/* 羽毛生成 */
 function createFeather(){
     const feather = document.createElement("div");
     feather.classList.add("feather");
     feather.style.left = Math.random()*100 + "vw";
-    feather.style.animationDuration = (5 + Math.random()*5) + "s";
-    feather.style.opacity = 0.4 + Math.random()*0.5;
+    feather.style.animationDuration = (6 + Math.random()*6) + "s";
+    feather.style.opacity = 0.5 + Math.random()*0.5;
     document.body.appendChild(feather);
 
     setTimeout(()=>{
         feather.remove();
-    },10000);
+    },12000);
 }
 
-setInterval(createFeather,500);
+setInterval(createFeather,600);
 </script>
 
 </body>
