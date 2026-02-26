@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>與菲林斯同行</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:"Noto Sans TC",sans-serif;
+    overflow:hidden;
+    background:#f4faff;
+}
+
+/* 可自訂背景 */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:url('https://images.plurk.com/46sqXhDC0LECWiYsHbgm7n.png');
+    background-size:cover;
+    background-position:center;
+    opacity:0.25; /* 背景透明度 */
+    z-index:-2;
+}
+
+.card{
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:24px;
+    text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,0.08);
+    width:90%;
+    max-width:420px;
+}
+
+h1{
+    font-size:24px;
+    letter-spacing:2px;
+    color:#3a6ea5;
+    margin-bottom:10px;
+}
+
+.sub{
+    font-size:13px;
+    color:#6b8bbd;
+    margin-bottom:25px;
+}
+
+.days{
+    font-size:46px;
+    color:#2f5d8a;
+    font-weight:bold;
+}
+
+.time{
+    margin-top:10px;
+    color:#5c7ea6;
+    font-size:15px;
+}
+
+/* 羽毛動畫 */
+.feather{
+    position:fixed;
+    top:-50px;
+    width:20px;
+    height:20px;
+    background:radial-gradient(ellipse at center, #ffffff 40%, #dbeeff 70%);
+    border-radius:50% 50% 50% 0;
+    opacity:0.7;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    0%{
+        transform:translateY(-50px) rotate(0deg);
+    }
+    100%{
+        transform:translateY(110vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>與菲林斯同行</h1>
+    <div class="sub">自 2025 年 10 月 13 日</div>
+    <div class="days" id="days"></div>
+    <div class="time" id="time"></div>
+</div>
+
+<script>
+const startDate = new Date("2025-10-13T00:00:00");
+
+function updateCounter(){
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("days").innerText = days + " 天";
+    document.getElementById("time").innerText =
+        hours + " 小時 " +
+        minutes + " 分鐘 " +
+        seconds + " 秒";
+}
+
+updateCounter();
+setInterval(updateCounter,1000);
+
+/* 生成羽毛 */
+function createFeather(){
+    const feather = document.createElement("div");
+    feather.classList.add("feather");
+    feather.style.left = Math.random()*100 + "vw";
+    feather.style.animationDuration = (5 + Math.random()*5) + "s";
+    feather.style.opacity = 0.4 + Math.random()*0.5;
+    document.body.appendChild(feather);
+
+    setTimeout(()=>{
+        feather.remove();
+    },10000);
+}
+
+setInterval(createFeather,500);
+</script>
+
+</body>
+</html>
